@@ -1,8 +1,7 @@
 require 'active_support/core_ext'
 require 'json'
 require 'webrick'
-require 'rails_lite'
-
+require_relative '../lib/rails_lite'
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick.html
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/HTTPRequest.html
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/HTTPResponse.html
@@ -31,6 +30,9 @@ class UserController < ControllerBase
 end
 
 server.mount_proc '/' do |req, res|
+  puts "REQUEST:"
+  puts req
+
   router = Router.new
   router.draw do
     get Regexp.new("^/statuses$"), StatusController, :index
@@ -41,6 +43,9 @@ server.mount_proc '/' do |req, res|
   end
 
   route = router.run(req, res)
+
+  puts "RESPONSE"
+  puts res
 end
 
 server.start
