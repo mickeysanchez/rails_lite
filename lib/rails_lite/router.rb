@@ -17,8 +17,21 @@ class Route
   # use pattern to pull out route params (save for later?)
   # instantiate controller and call controller action
   def run(req, res)
-    controller = @controller_class.new(req, res)
+    route_params = parse_route_params(req)
+    controller = @controller_class.new(req, res, route_params)
     controller.invoke_action(@action_name.to_sym)
+  end
+
+  def parse_route_params(req)
+    route_params = {}
+
+    match_data = @pattern.match(req.path)
+
+    match_data.captures.count.times do |n|
+      route_params[match_data.names[n].to_sym] = match_data.captures[n]
+    end
+
+    route_params
   end
 end
 

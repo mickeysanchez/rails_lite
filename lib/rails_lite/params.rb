@@ -15,8 +15,8 @@ class Params
       @params.merge!(parse_query(query_string))
     elsif post_body
       @params.merge!(parse_body(post_body))
-    # elsif route params
-      # parse those
+    else
+      @params.merge!(route_params)
     end
   end
 

@@ -7,7 +7,7 @@ require_relative '../lib/rails_lite'
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/HTTPResponse.html
 # http://www.ruby-doc.org/stdlib-2.0/libdoc/webrick/rdoc/WEBrick/Cookie.html
 
-server = WEBrick::HTTPServer.new :Port => 8080
+server = WEBrick::HTTPServer.new :Port => 8888
 trap('INT') { server.shutdown }
 
 class MyController < ControllerBase
